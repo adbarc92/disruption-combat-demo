@@ -54,6 +54,22 @@ export const drawGridFromRectangleSpecs = (
   });
 };
 
+export const createCanvasSetFromGridSpecs = (
+  gridSpecs: RectangleSpecs[][],
+  squareFillColor: Color,
+  squareOutlineColor: Color,
+): HTMLCanvasElement[] => {
+  const canvases: HTMLCanvasElement[] = [];
+  // Iterate through, creating a new canvas element with a hover event.
+  gridSpecs.forEach((column) => {
+    column.forEach((row) => {
+      const newCanvas = document.createElement('canvas');
+    });
+  });
+
+  return canvases;
+};
+
 // Calculate the grid's squares, then return them in a 2D array
 export const createSquareGridSpecs = (
   centerX: number,
