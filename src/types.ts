@@ -1,4 +1,4 @@
-import { Color } from "./color";
+import { Color } from './color';
 
 export interface Dimensions {
   width: number;
@@ -18,6 +18,13 @@ export interface DrawTextParams {
   font?: string;
   color?: Color;
   size?: number;
-  align?: "left" | "center" | "right";
+  align?: 'left' | 'center' | 'right';
   strokeColor?: string;
+}
+
+export interface RectangleSpecs {
+  startX: number;
+  startY: number;
+  width: number;
+  height: number;
 }

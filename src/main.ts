@@ -1,4 +1,8 @@
-import { drawBattleArena } from './battleDraw';
+import {
+  createSquareGridSpecs,
+  drawGridFromRectangleSpecs,
+  drawSquareGrid,
+} from './battleDraw';
 import { createCanvas } from './canvas';
 import { COLOR_BLACK, COLOR_BLUE, COLOR_RED, COLOR_WHITE } from './color';
 import { drawCircle, drawRect, drawText } from './draw';
@@ -59,7 +63,7 @@ const testText = (
   );
 };
 
-const testBattleArena = (
+const testDrawRectGrid = (
   canvasWidth: number,
   canvasHeight: number,
   ctx: CanvasContext,
@@ -68,7 +72,30 @@ const testBattleArena = (
   const centerY = canvasHeight / 2;
   const squareSize = 100;
 
-  drawBattleArena(centerX, centerY, squareSize, COLOR_BLACK, COLOR_BLUE, ctx);
+  drawSquareGrid(
+    centerX,
+    centerY,
+    squareSize,
+    COLOR_BLACK,
+    COLOR_BLUE,
+    ctx,
+    3,
+    3,
+  );
+};
+
+const testRectSpecsGrid = (
+  canvasWidth: number,
+  canvasHeight: number,
+  ctx: CanvasContext,
+) => {
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
+  const squareSide = 100;
+
+  const gridSpecs = createSquareGridSpecs(centerX, centerY, squareSide, 4, 6);
+
+  drawGridFromRectangleSpecs(gridSpecs, COLOR_BLACK, COLOR_RED, ctx);
 };
 
 const drawMidlines = (
@@ -93,5 +120,6 @@ export const main = () => {
   // testShapes(width, height, ctx);
   testText(width, height, ctx);
   drawMidlines(width, height, ctx);
-  testBattleArena(width, height, ctx);
+  // testDrawRectGrid(width, height, ctx);
+  testRectSpecsGrid(width, height, ctx);
 };
