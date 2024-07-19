@@ -28,6 +28,6 @@ const getGlobalCanvas = (): HTMLCanvasElement => {
   return canvas;
 };
 
-const getGlobalCtx = (): CanvasRenderingContext2D => {
+export const getGlobalCtx = (): CanvasRenderingContext2D => {
   return getGlobalCanvas().getContext("2d") as CanvasRenderingContext2D;
 };
