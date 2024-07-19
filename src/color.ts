@@ -1,3 +1,4 @@
+// TODO This may be a fool's errand
 export interface Color {
   name: string;
   hexCode: string;
@@ -6,6 +7,11 @@ export interface Color {
 export const COLOR_BLACK: Color = {
   name: "BLACK",
   hexCode: "#000000",
+};
+
+export const COLOR_WHITE: Color = {
+  name: "WHITE",
+  hexCode: "#fff",
 };
 
 export const COLOR_RED: Color = {

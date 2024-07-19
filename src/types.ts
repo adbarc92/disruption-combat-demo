@@ -1,11 +1,8 @@
+import { Color } from "./color";
+
 export interface Dimensions {
   width: number;
   height: number;
-}
-
-export interface OptionalDimensions {
-  width: number | undefined;
-  height: number | undefined;
 }
 
 export interface CanvasSpecs {
@@ -16,3 +13,11 @@ export interface CanvasSpecs {
 }
 
 export type CanvasContext = CanvasRenderingContext2D;
+
+export interface DrawTextParams {
+  font?: string;
+  color?: Color;
+  size?: number;
+  align?: "left" | "center" | "right";
+  strokeColor?: string;
+}
