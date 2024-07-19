@@ -4,18 +4,20 @@
  * The actual drawing is done via the context's methods.
  */
 
+import { CanvasContext } from "./types";
+
 let globalCanvas: HTMLCanvasElement | null = null;
 const CANVAS_DEFAULT_HEIGHT = 576;
 const CANVAS_DEFAULT_WIDTH = 576;
 
-const createCanvas = (
+export const createCanvas = (
   width: number = CANVAS_DEFAULT_WIDTH,
   height: number = CANVAS_DEFAULT_HEIGHT
-): [HTMLCanvasElement, CanvasRenderingContext2D, number, number] => {
+): [HTMLCanvasElement, CanvasContext, number, number] => {
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
-  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+  const ctx = canvas.getContext("2d") as CanvasContext;
   ctx.imageSmoothingEnabled = true; // Determines whether scaled images are smoothed
   return [canvas, ctx, width, height];
 };
@@ -28,6 +30,6 @@ const getGlobalCanvas = (): HTMLCanvasElement => {
   return canvas;
 };
 
-export const getGlobalCtx = (): CanvasRenderingContext2D => {
-  return getGlobalCanvas().getContext("2d") as CanvasRenderingContext2D;
+export const getGlobalCtx = (): CanvasContext => {
+  return getGlobalCanvas().getContext("2d") as CanvasContext;
 };

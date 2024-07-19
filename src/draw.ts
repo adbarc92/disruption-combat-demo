@@ -6,6 +6,7 @@
 
 import { getGlobalCtx } from "./canvas";
 import { Color } from "./color";
+import { CanvasContext } from "./types";
 
 export const drawRect = (
   x: number,
@@ -14,7 +15,7 @@ export const drawRect = (
   h: number,
   fill: boolean = false,
   color: Color,
-  ctx?: CanvasRenderingContext2D
+  ctx?: CanvasContext
 ) => {
   ctx = ctx ?? getGlobalCtx();
   ctx[fill ? "fillStyle" : "strokeStyle"] = color.name;
@@ -27,7 +28,7 @@ export const drawCircle = (
   r: number,
   fill: boolean = false,
   color: Color,
-  ctx?: CanvasRenderingContext2D
+  ctx?: CanvasContext
 ) => {
   ctx = ctx ?? getGlobalCtx();
   ctx.arc(x, y, r, 0, 2 * Math.PI, false);
