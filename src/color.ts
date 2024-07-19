@@ -5,21 +5,26 @@ export interface Color {
 }
 
 export const COLOR_BLACK: Color = {
-  name: "BLACK",
-  hexCode: "#000000",
+  name: 'BLACK',
+  hexCode: '#000000',
 };
 
 export const COLOR_WHITE: Color = {
-  name: "WHITE",
-  hexCode: "#fff",
+  name: 'WHITE',
+  hexCode: '#fff',
 };
 
 export const COLOR_RED: Color = {
-  name: "RED",
-  hexCode: "#ff1100",
+  name: 'RED',
+  hexCode: '#ff1100',
 };
 
 export const COLOR_GREEN: Color = {
-  name: "RED",
-  hexCode: "#26ff00",
+  name: 'GREEN',
+  hexCode: '#26ff00',
+};
+
+export const COLOR_BLUE: Color = {
+  name: 'BLUE',
+  hexCode: '#0000ff',
 };

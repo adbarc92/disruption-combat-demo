@@ -1,5 +1,6 @@
+import { drawBattleArena } from './battleDraw';
 import { createCanvas } from './canvas';
-import { COLOR_BLACK, COLOR_RED, COLOR_WHITE } from './color';
+import { COLOR_BLACK, COLOR_BLUE, COLOR_RED, COLOR_WHITE } from './color';
 import { drawCircle, drawRect, drawText } from './draw';
 import { CanvasContext, CanvasSpecs } from './types';
 
@@ -15,7 +16,7 @@ const createWindowCanvasAndReturnSpecs = (): CanvasSpecs => {
   return { width, height, canvas, ctx };
 };
 
-const shapeTest = (
+const testShapes = (
   canvasWidth: number,
   canvasHeight: number,
   ctx: CanvasContext,
@@ -29,8 +30,8 @@ const shapeTest = (
     centerY - squareSize,
     squareSize,
     squareSize,
-    true,
     COLOR_BLACK,
+    COLOR_BLUE,
     ctx,
   );
 
@@ -44,7 +45,7 @@ const shapeTest = (
   );
 };
 
-const textTest = (
+const testText = (
   canvasWidth: number,
   canvasHeight: number,
   ctx: CanvasContext,
@@ -52,14 +53,45 @@ const textTest = (
   drawText(
     'Disruption Combat Demo',
     canvasWidth / 2 - 50,
-    canvasWidth / 2 + 100,
-    { color: COLOR_WHITE },
+    120,
+    { color: COLOR_WHITE, align: 'center' },
     ctx,
   );
 };
 
+const testBattleArena = (
+  canvasWidth: number,
+  canvasHeight: number,
+  ctx: CanvasContext,
+) => {
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
+  const squareSize = 100;
+
+  drawBattleArena(centerX, centerY, squareSize, COLOR_BLACK, COLOR_BLUE, ctx);
+};
+
+const drawMidlines = (
+  canvasWidth: number,
+  canvasHeight: number,
+  ctx: CanvasContext,
+) => {
+  ctx.strokeStyle = COLOR_BLACK.name;
+  ctx.beginPath();
+  ctx.moveTo(0, canvasHeight / 2);
+  ctx.lineTo(canvasWidth, canvasHeight / 2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(canvasWidth / 2, 0);
+  ctx.lineTo(canvasWidth / 2, canvasHeight);
+  ctx.stroke();
+};
+
 export const main = () => {
-  const { width, height, canvas, ctx } = createWindowCanvasAndReturnSpecs();
-  shapeTest(width, height, ctx);
-  textTest(width, height, ctx);
+  const { width, height, ctx } = createWindowCanvasAndReturnSpecs();
+  // testShapes(width, height, ctx);
+  testText(width, height, ctx);
+  drawMidlines(width, height, ctx);
+  testBattleArena(width, height, ctx);
 };

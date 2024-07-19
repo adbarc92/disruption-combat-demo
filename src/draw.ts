@@ -19,13 +19,19 @@ export const drawRect = (
   y: number,
   w: number,
   h: number,
-  fill: boolean = false,
-  color: Color,
+  fillColor: Color,
+  outlineColor?: Color,
   ctx?: CanvasContext,
 ) => {
   ctx = ctx ?? getGlobalCtx();
-  ctx[fill ? 'fillStyle' : 'strokeStyle'] = color.name;
-  ctx[fill ? 'fillRect' : 'strokeRect'](x, y, w, h);
+  ctx.fillStyle = fillColor.name;
+  ctx.fillRect(x, y, w, h);
+
+  if (outlineColor) {
+    ctx.strokeStyle = outlineColor.name;
+    ctx.lineWidth = 4;
+    ctx.strokeRect(x, y, w, h);
+  }
 };
 
 export const drawCircle = (
