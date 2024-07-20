@@ -13,8 +13,6 @@ export const gameLoop = (game: Game) => {
   let prevTime = currentTime;
   const msPerUpdate = 22;
 
-  // const targetMult = normalize(msPerUpdate, 16, 30, 1, 2);
-
   performanceLoop(prevTime);
   renderLoop(game);
 

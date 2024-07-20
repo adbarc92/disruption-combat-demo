@@ -66,7 +66,7 @@ export const drawCircleOnGrid = (
   const { x, y } = positionToCanvasCoordinates(circlePosition, gridSpecs);
   console.log(`x ${x}`);
   console.log(`y ${y}`);
-  drawCircle(x, y, 50, squareFillColor, squareOutlineColor, ctx);
+  drawCircle(x, y, 40, squareFillColor, squareOutlineColor, ctx);
 };
 
 const positionToCanvasCoordinates = (
@@ -76,8 +76,8 @@ const positionToCanvasCoordinates = (
   const gridItem = gridSpecs[circlePosition.y][circlePosition.x];
   console.log(`gridItem ${JSON.stringify(gridItem)}`);
   return {
-    x: (gridItem.startX + gridItem.width) / 2,
-    y: (gridItem.startY + gridItem.height) / 2,
+    x: gridItem.startX + gridItem.width / 2,
+    y: gridItem.startY + gridItem.height / 2,
   };
 };
 

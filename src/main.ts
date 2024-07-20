@@ -11,10 +11,10 @@ const CANVAS_HOLDER_ID = 'canvasHolder';
 
 const createWindowCanvasAndReturnSpecs = (): CanvasSpecs => {
   const [canvas, ctx, width, height] = createCanvas(
-    // window.innerWidth,
-    // window.innerHeight,
-    1024,
-    1024,
+    window.innerWidth,
+    window.innerHeight,
+    // 1024,
+    // 1024,
   );
   canvas.id = 'canvas';
   document.getElementById(CANVAS_HOLDER_ID)?.appendChild(canvas);
