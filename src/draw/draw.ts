@@ -14,46 +14,64 @@ const DEFAULT_TEXT_PARAMS: DrawTextParams = {
   strokeColor: 'black',
 };
 
-// FIXME: refactor for drawing only outlines
-export const drawRect = (
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  fillColor: Color,
-  outlineColor?: Color,
-  ctx?: CanvasContext,
-) => {
-  ctx = ctx ?? getGlobalCtx();
-  ctx.fillStyle = fillColor.name;
-  ctx.fillRect(x, y, w, h);
+interface DrawRectParams {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  fillColor?: Color;
+  outlineColor: Color;
+  ctx?: CanvasContext;
+}
 
-  if (outlineColor) {
-    ctx.strokeStyle = outlineColor.name;
-    ctx.lineWidth = 4;
-    ctx.strokeRect(x, y, w, h);
+export const drawRect = ({
+  x,
+  y,
+  w,
+  h,
+  fillColor,
+  outlineColor,
+  ctx,
+}: DrawRectParams) => {
+  ctx = ctx ?? getGlobalCtx();
+  ctx.strokeStyle = outlineColor.name;
+  ctx.lineWidth = 4;
+  ctx.strokeRect(x, y, w, h);
+
+  if (fillColor) {
+    ctx.fillStyle = fillColor.name;
+    ctx.fillRect(x, y, w, h);
   }
 };
 
-// FIXME: refactor for drawing only outlines
-export const drawCircle = (
-  x: number,
-  y: number,
-  r: number,
-  fillColor: Color,
-  outlineColor?: Color,
-  ctx?: CanvasContext,
-) => {
+interface DrawCircleParams {
+  x: number;
+  y: number;
+  r: number;
+  fillColor?: Color;
+  outlineColor: Color;
+  ctx?: CanvasContext;
+}
+
+export const drawCircle = ({
+  x,
+  y,
+  r,
+  fillColor,
+  outlineColor,
+  ctx,
+}: DrawCircleParams) => {
   ctx = ctx ?? getGlobalCtx();
   ctx.beginPath();
   ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-  ctx.fillStyle = fillColor.name;
-  ctx.fill();
 
-  if (outlineColor) {
-    ctx.strokeStyle = outlineColor.name;
-    ctx.lineWidth = 4;
-    ctx.stroke();
+  ctx.strokeStyle = outlineColor.name;
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  if (fillColor) {
+    ctx.fillStyle = fillColor.name;
+    ctx.fill();
   }
 
   ctx.closePath();

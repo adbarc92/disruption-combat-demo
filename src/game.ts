@@ -51,20 +51,20 @@ export class Game {
       this.ctx,
     );
 
-    drawGridFromRectangleSpecs(
-      this.gridSpecs,
-      COLOR_BLACK,
-      COLOR_RED,
-      this.ctx,
-    );
+    drawGridFromRectangleSpecs({
+      gridSpecs: this.gridSpecs,
+      fillColor: undefined,
+      outlineColor: COLOR_BLACK,
+      ctx: this.ctx,
+    });
 
-    drawCircleOnGrid(
-      this.circlePosition,
-      this.gridSpecs,
-      COLOR_GREEN,
-      COLOR_GREEN,
-      this.ctx,
-    );
+    drawCircleOnGrid({
+      circlePosition: this.circlePosition,
+      gridSpecs: this.gridSpecs,
+      outlineColor: COLOR_GREEN,
+      fillColor: undefined,
+      ctx: this.ctx,
+    });
   }
 
   handleArrowUp() {

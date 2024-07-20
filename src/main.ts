@@ -1,9 +1,4 @@
-import { clearCanvas, createCanvas } from './draw/canvas';
-import {
-  drawMidlines,
-  testRectSpecsGrid,
-  testText,
-} from './draw/testFunctions';
+import { createCanvas } from './draw/canvas';
 import { Game } from './game';
 import { CanvasSpecs } from './types';
 
@@ -13,8 +8,6 @@ const createWindowCanvasAndReturnSpecs = (): CanvasSpecs => {
   const [canvas, ctx, width, height] = createCanvas(
     window.innerWidth,
     window.innerHeight,
-    // 1024,
-    // 1024,
   );
   canvas.id = 'canvas';
   document.getElementById(CANVAS_HOLDER_ID)?.appendChild(canvas);
@@ -48,7 +41,7 @@ export const main = async () => {
   // FIXME: Load database
   console.log('Loaded database.');
   console.log('Creating game...');
-  const { width, height, ctx } = createWindowCanvasAndReturnSpecs();
+  const { ctx } = createWindowCanvasAndReturnSpecs();
   const game = new Game(ctx);
   console.log('Created game.');
   console.log('Adding event listeners...');
@@ -56,7 +49,4 @@ export const main = async () => {
   console.log('Added event listeners.');
   console.log('Starting game...');
   game.start();
-  // testText(width, height, ctx);
-  // drawMidlines(width, height, ctx);
-  // testRectSpecsGrid(width, height, ctx);
 };
