@@ -5,6 +5,11 @@ export interface Dimensions {
   height: number;
 }
 
+export interface Position {
+  x: number;
+  y: number;
+}
+
 export interface CanvasSpecs {
   width: number;
   height: number;
@@ -27,4 +32,8 @@ export interface RectangleSpecs {
   startY: number;
   width: number;
   height: number;
+}
+
+export interface Window {
+  game: Game;
 }

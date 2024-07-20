@@ -5,6 +5,8 @@
  */
 
 import { CanvasContext } from '../types';
+import { COLOR_WHITE } from './color';
+import { drawRect } from './draw';
 
 let globalCanvas: HTMLCanvasElement | null = null;
 const CANVAS_DEFAULT_HEIGHT = 576;
@@ -32,4 +34,17 @@ const getGlobalCanvas = (): HTMLCanvasElement => {
 
 export const getGlobalCtx = (): CanvasContext => {
   return getGlobalCanvas().getContext('2d') as CanvasContext;
+};
+
+export const clearCanvas = (canvas?: HTMLCanvasElement) => {
+  canvas = canvas || getGlobalCanvas();
+  drawRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height,
+    COLOR_WHITE,
+    undefined,
+    canvas.getContext('2d') as CanvasContext,
+  );
 };

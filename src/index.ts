@@ -1,4 +1,6 @@
-import "./style.css";
-import { main } from "./main.ts";
+import './style.css';
+import { main } from './main.ts';
 
-main();
+window.addEventListener('load', () => {
+  main();
+});
