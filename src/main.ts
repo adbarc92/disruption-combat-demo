@@ -27,17 +27,14 @@ const addEventListeners = (game: Game) => {
       case 'ArrowUp':
         game.handleArrowUp();
         break;
-      case 'ArrowUp':
-        game.handleArrowUp();
+      case 'ArrowDown':
+        game.handleArrowDown();
         break;
-      case 'ArrowUp':
-        game.handleArrowUp();
+      case 'ArrowRight':
+        game.handleArrowRight();
         break;
-      case 'ArrowUp':
-        game.handleArrowUp();
-        break;
-      case 'Delete': // FIXME delete after debugging
-        clearCanvas(game.ctx.canvas);
+      case 'ArrowLeft':
+        game.handleArrowLeft();
         break;
     }
   });

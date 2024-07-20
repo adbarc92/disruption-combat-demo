@@ -60,12 +60,7 @@ export const drawCircleOnGrid = (
   squareOutlineColor: Color,
   ctx: CanvasContext,
 ) => {
-  console.log(`circlePosition ${circlePosition.x} ${circlePosition.y}`);
-  console.log(`circlePosition ${JSON.stringify(circlePosition)}`);
-  console.log(`gridSpecs ${JSON.stringify(gridSpecs)}`);
   const { x, y } = positionToCanvasCoordinates(circlePosition, gridSpecs);
-  console.log(`x ${x}`);
-  console.log(`y ${y}`);
   drawCircle(x, y, 40, squareFillColor, squareOutlineColor, ctx);
 };
 
@@ -74,7 +69,6 @@ const positionToCanvasCoordinates = (
   gridSpecs: RectangleSpecs[][],
 ): Position => {
   const gridItem = gridSpecs[circlePosition.y][circlePosition.x];
-  console.log(`gridItem ${JSON.stringify(gridItem)}`);
   return {
     x: gridItem.startX + gridItem.width / 2,
     y: gridItem.startY + gridItem.height / 2,

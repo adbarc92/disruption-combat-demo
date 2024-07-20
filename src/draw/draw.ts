@@ -45,6 +45,7 @@ export const drawCircle = (
   ctx?: CanvasContext,
 ) => {
   ctx = ctx ?? getGlobalCtx();
+  ctx.beginPath();
   ctx.arc(x, y, r, 0, 2 * Math.PI, false);
   ctx.fillStyle = fillColor.name;
   ctx.fill();
@@ -54,6 +55,8 @@ export const drawCircle = (
     ctx.lineWidth = 4;
     ctx.stroke();
   }
+
+  ctx.closePath();
 };
 
 // TODO: It would be nice to have fixed locations for the text to appear

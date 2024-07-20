@@ -3,10 +3,12 @@ import {
   drawCircleOnGrid,
   drawGridFromRectangleSpecs,
 } from './draw/battleDraw';
+import { clearCanvas } from './draw/canvas';
 import { COLOR_BLACK, COLOR_GREEN, COLOR_RED, COLOR_WHITE } from './draw/color';
 import { drawText } from './draw/draw';
 import { gameLoop } from './loop';
 import { CanvasContext, Position, RectangleSpecs } from './types';
+import { handleLoopedArrayIndexing } from './utils';
 
 export class Game {
   ctx: CanvasContext;
@@ -19,7 +21,7 @@ export class Game {
     const centerX = this.ctx.canvas.width / 2;
     const centerY = this.ctx.canvas.height / 2;
     const squareSide = 100;
-    this.gridSpecs = createSquareGridSpecs(centerX, centerY, squareSide, 4, 6);
+    this.gridSpecs = createSquareGridSpecs(centerX, centerY, squareSide, 3, 3);
 
     this.circlePosition = { x: 0, y: 0 };
 
@@ -34,6 +36,10 @@ export class Game {
   async start() {
     gameLoop(this);
     // this.draw();
+  }
+
+  clearCanvas() {
+    clearCanvas(this.ctx.canvas);
   }
 
   draw() {
@@ -64,20 +70,44 @@ export class Game {
   handleArrowUp() {
     this.circlePosition = {
       x: this.circlePosition.x,
-      y: this.circlePosition.y + (1 % (this.gridSpecs.length - 1)),
+      y: handleLoopedArrayIndexing(
+        this.circlePosition.y,
+        -1,
+        this.gridSpecs.length,
+      ),
     };
-    console.log('Implement handleArrowUp');
   }
 
   handleArrowDown() {
-    console.log('Implement handleArrowDown');
+    this.circlePosition = {
+      x: this.circlePosition.x,
+      y: handleLoopedArrayIndexing(
+        this.circlePosition.y,
+        1,
+        this.gridSpecs.length,
+      ),
+    };
   }
 
   handleArrowRight() {
-    console.log('Implement handleArrowRight');
+    this.circlePosition = {
+      x: handleLoopedArrayIndexing(
+        this.circlePosition.x,
+        1,
+        this.gridSpecs[this.circlePosition.y].length,
+      ),
+      y: this.circlePosition.y,
+    };
   }
 
   handleArrowLeft() {
-    console.log('Implement handleArrowLeft');
+    this.circlePosition = {
+      x: handleLoopedArrayIndexing(
+        this.circlePosition.x,
+        -1,
+        this.gridSpecs[this.circlePosition.y].length,
+      ),
+      y: this.circlePosition.y,
+    };
   }
 }

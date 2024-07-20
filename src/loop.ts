@@ -37,6 +37,6 @@ const performanceLoop = (prevTime: number) => {
 };
 
 const renderLoop = (game: Game) => {
-  clearCanvas(game.ctx.canvas);
+  game.clearCanvas();
   game.draw();
 };
