@@ -8,8 +8,8 @@ export const drawSquareGrid = (
   centerX: number,
   centerY: number,
   squareSide: number,
-  squareFillColor: Color,
-  squareOutlineColor: Color,
+  fillColor: Color,
+  outlineColor: Color,
   ctx: CanvasContext,
   gridWidth: number = 3,
   gridHeight: number = 3,
@@ -19,36 +19,43 @@ export const drawSquareGrid = (
   const startY = centerY - (gridHeight / 2) * squareSide;
   for (let y = 0; y < gridHeight; y++) {
     for (let x = 0; x < gridWidth; x++) {
-      drawRect(
-        startX + x * squareSide,
-        startY + y * squareSide,
-        squareSide,
-        squareSide,
-        squareFillColor,
-        squareOutlineColor,
+      drawRect({
+        x: startX + x * squareSide,
+        y: startY + y * squareSide,
+        w: squareSide,
+        h: squareSide,
+        fillColor,
+        outlineColor,
         ctx,
-      );
+      });
     }
   }
 };
 
-export const drawGridFromRectangleSpecs = (
-  gridSpecs: RectangleSpecs[][],
-  squareFillColor: Color,
-  squareOutlineColor: Color,
-  ctx: CanvasContext,
-) => {
+interface DrawGridFromRectangleSpecsParams {
+  gridSpecs: RectangleSpecs[][];
+  fillColor?: Color;
+  outlineColor: Color;
+  ctx: CanvasContext;
+}
+
+export const drawGridFromRectangleSpecs = ({
+  gridSpecs,
+  fillColor,
+  outlineColor,
+  ctx,
+}: DrawGridFromRectangleSpecsParams) => {
   gridSpecs.forEach((column) => {
     column.forEach((row) => {
-      drawRect(
-        row.startX,
-        row.startY,
-        row.width,
-        row.height,
-        squareFillColor,
-        squareOutlineColor,
+      drawRect({
+        x: row.startX,
+        y: row.startY,
+        w: row.width,
+        h: row.height,
+        fillColor,
+        outlineColor,
         ctx,
-      );
+      });
     });
   });
 };

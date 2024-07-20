@@ -51,12 +51,12 @@ export class Game {
       this.ctx,
     );
 
-    drawGridFromRectangleSpecs(
-      this.gridSpecs,
-      COLOR_BLACK,
-      COLOR_RED,
-      this.ctx,
-    );
+    drawGridFromRectangleSpecs({
+      gridSpecs: this.gridSpecs,
+      fillColor: undefined,
+      outlineColor: COLOR_BLACK,
+      ctx: this.ctx,
+    });
 
     drawCircleOnGrid({
       circlePosition: this.circlePosition,

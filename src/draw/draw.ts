@@ -14,24 +14,33 @@ const DEFAULT_TEXT_PARAMS: DrawTextParams = {
   strokeColor: 'black',
 };
 
-// FIXME: refactor for drawing only outlines
-export const drawRect = (
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  fillColor: Color,
-  outlineColor?: Color,
-  ctx?: CanvasContext,
-) => {
-  ctx = ctx ?? getGlobalCtx();
-  ctx.fillStyle = fillColor.name;
-  ctx.fillRect(x, y, w, h);
+interface DrawRectParams {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  fillColor?: Color;
+  outlineColor: Color;
+  ctx?: CanvasContext;
+}
 
-  if (outlineColor) {
-    ctx.strokeStyle = outlineColor.name;
-    ctx.lineWidth = 4;
-    ctx.strokeRect(x, y, w, h);
+export const drawRect = ({
+  x,
+  y,
+  w,
+  h,
+  fillColor,
+  outlineColor,
+  ctx,
+}: DrawRectParams) => {
+  ctx = ctx ?? getGlobalCtx();
+  ctx.strokeStyle = outlineColor.name;
+  ctx.lineWidth = 4;
+  ctx.strokeRect(x, y, w, h);
+
+  if (fillColor) {
+    ctx.fillStyle = fillColor.name;
+    ctx.fillRect(x, y, w, h);
   }
 };
 

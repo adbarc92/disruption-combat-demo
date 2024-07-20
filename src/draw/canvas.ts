@@ -38,13 +38,13 @@ export const getGlobalCtx = (): CanvasContext => {
 
 export const clearCanvas = (canvas?: HTMLCanvasElement) => {
   canvas = canvas || getGlobalCanvas();
-  drawRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height,
-    COLOR_WHITE,
-    COLOR_WHITE,
-    canvas.getContext('2d') as CanvasContext,
-  );
+  drawRect({
+    x: 0,
+    y: 0,
+    w: canvas.width,
+    h: canvas.height,
+    fillColor: COLOR_WHITE,
+    outlineColor: COLOR_WHITE,
+    ctx: canvas.getContext('2d') as CanvasContext,
+  });
 };
