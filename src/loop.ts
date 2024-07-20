@@ -4,7 +4,6 @@
 
 import { clearCanvas } from './draw/canvas';
 import { Game } from './game';
-import { normalize } from './utils';
 
 const MS_PER_FRAME_FOR_60_FPS = 16;
 const DT = 0.01;

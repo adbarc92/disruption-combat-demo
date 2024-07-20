@@ -30,7 +30,7 @@ export const testShapes = (
     centerX - squareSize / 2,
     centerY - squareSize / 2,
     squareSize / 2 - 10,
-    true,
+    COLOR_BLACK,
     COLOR_RED,
     ctx,
   );

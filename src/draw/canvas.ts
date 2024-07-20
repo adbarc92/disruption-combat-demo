@@ -37,6 +37,7 @@ export const getGlobalCtx = (): CanvasContext => {
 };
 
 export const clearCanvas = (canvas?: HTMLCanvasElement) => {
+  console.log(`Clearing canvas ${JSON.stringify(canvas)}`);
   canvas = canvas || getGlobalCanvas();
   drawRect(
     0,
@@ -44,7 +45,7 @@ export const clearCanvas = (canvas?: HTMLCanvasElement) => {
     canvas.width,
     canvas.height,
     COLOR_WHITE,
-    undefined,
+    COLOR_WHITE,
     canvas.getContext('2d') as CanvasContext,
   );
 };

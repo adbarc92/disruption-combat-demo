@@ -1,8 +1,8 @@
 // TODO: draw battle arena
 
 import { Color } from './color';
-import { drawRect } from './draw';
-import { CanvasContext, RectangleSpecs } from '../types';
+import { drawCircle, drawRect } from './draw';
+import { CanvasContext, Position, RectangleSpecs } from '../types';
 
 export const drawSquareGrid = (
   centerX: number,
@@ -40,7 +40,6 @@ export const drawGridFromRectangleSpecs = (
 ) => {
   gridSpecs.forEach((column) => {
     column.forEach((row) => {
-      // Add mouseover listener
       drawRect(
         row.startX,
         row.startY,
@@ -54,20 +53,32 @@ export const drawGridFromRectangleSpecs = (
   });
 };
 
-export const createCanvasSetFromGridSpecs = (
+export const drawCircleOnGrid = (
+  circlePosition: Position,
   gridSpecs: RectangleSpecs[][],
   squareFillColor: Color,
   squareOutlineColor: Color,
-): HTMLCanvasElement[] => {
-  const canvases: HTMLCanvasElement[] = [];
-  // Iterate through, creating a new canvas element with a hover event.
-  gridSpecs.forEach((column) => {
-    column.forEach((row) => {
-      const newCanvas = document.createElement('canvas');
-    });
-  });
+  ctx: CanvasContext,
+) => {
+  console.log(`circlePosition ${circlePosition.x} ${circlePosition.y}`);
+  console.log(`circlePosition ${JSON.stringify(circlePosition)}`);
+  console.log(`gridSpecs ${JSON.stringify(gridSpecs)}`);
+  const { x, y } = positionToCanvasCoordinates(circlePosition, gridSpecs);
+  console.log(`x ${x}`);
+  console.log(`y ${y}`);
+  drawCircle(x, y, 50, squareFillColor, squareOutlineColor, ctx);
+};
 
-  return canvases;
+const positionToCanvasCoordinates = (
+  circlePosition: Position,
+  gridSpecs: RectangleSpecs[][],
+): Position => {
+  const gridItem = gridSpecs[circlePosition.y][circlePosition.x];
+  console.log(`gridItem ${JSON.stringify(gridItem)}`);
+  return {
+    x: (gridItem.startX + gridItem.width) / 2,
+    y: (gridItem.startY + gridItem.height) / 2,
+  };
 };
 
 // Calculate the grid's squares, then return them in a 2D array
@@ -80,7 +91,7 @@ export const createSquareGridSpecs = (
 ): RectangleSpecs[][] => {
   const startX = centerX - (gridWidth / 2) * squareSide;
   const startY = centerY - (gridHeight / 2) * squareSide;
-  const grid: RectangleSpecs[][] = [[]];
+  const grid: RectangleSpecs[][] = Array();
   for (let y = 0; y < gridHeight; y++) {
     const gridX: RectangleSpecs[] = [];
     for (let x = 0; x < gridWidth; x++) {

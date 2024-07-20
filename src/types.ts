@@ -1,4 +1,5 @@
 import { Color } from './draw/color';
+import { Game } from './game';
 
 export interface Dimensions {
   width: number;

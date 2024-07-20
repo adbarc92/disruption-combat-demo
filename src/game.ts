@@ -1,8 +1,9 @@
 import {
   createSquareGridSpecs,
+  drawCircleOnGrid,
   drawGridFromRectangleSpecs,
 } from './draw/battleDraw';
-import { COLOR_BLACK, COLOR_RED, COLOR_WHITE } from './draw/color';
+import { COLOR_BLACK, COLOR_GREEN, COLOR_RED, COLOR_WHITE } from './draw/color';
 import { drawText } from './draw/draw';
 import { gameLoop } from './loop';
 import { CanvasContext, Position, RectangleSpecs } from './types';
@@ -32,6 +33,7 @@ export class Game {
   // Canvas
   async start() {
     gameLoop(this);
+    // this.draw();
   }
 
   draw() {
@@ -49,14 +51,33 @@ export class Game {
       COLOR_RED,
       this.ctx,
     );
+
+    drawCircleOnGrid(
+      this.circlePosition,
+      this.gridSpecs,
+      COLOR_GREEN,
+      COLOR_GREEN,
+      this.ctx,
+    );
   }
 
-  async load() {
-    console.log('Loading game...');
-    // FIXME: Load sprites
-    console.log('Loaded sprites.');
-    console.log('Loading database...');
-    // FIXME: Load database
-    console.log('Loaded database.');
+  handleArrowUp() {
+    this.circlePosition = {
+      x: this.circlePosition.x,
+      y: this.circlePosition.y + (1 % (this.gridSpecs.length - 1)),
+    };
+    console.log('Implement handleArrowUp');
+  }
+
+  handleArrowDown() {
+    console.log('Implement handleArrowDown');
+  }
+
+  handleArrowRight() {
+    console.log('Implement handleArrowRight');
+  }
+
+  handleArrowLeft() {
+    console.log('Implement handleArrowLeft');
   }
 }
