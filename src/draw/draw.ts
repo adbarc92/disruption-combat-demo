@@ -4,7 +4,7 @@
 
 import { getGlobalCtx } from './canvas';
 import { Color, COLOR_BLACK } from './color';
-import { CanvasContext, DrawTextParams } from './types';
+import { CanvasContext, DrawTextParams } from '../types';
 
 const DEFAULT_TEXT_PARAMS: DrawTextParams = {
   font: 'monospace',
@@ -14,6 +14,7 @@ const DEFAULT_TEXT_PARAMS: DrawTextParams = {
   strokeColor: 'black',
 };
 
+// FIXME: refactor for drawing only outlines
 export const drawRect = (
   x: number,
   y: number,
@@ -34,22 +35,31 @@ export const drawRect = (
   }
 };
 
+// FIXME: refactor for drawing only outlines
 export const drawCircle = (
   x: number,
   y: number,
   r: number,
-  fill: boolean = false,
-  color: Color,
+  fillColor: Color,
+  outlineColor?: Color,
   ctx?: CanvasContext,
 ) => {
   ctx = ctx ?? getGlobalCtx();
+  ctx.beginPath();
   ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-  ctx[fill ? 'fillStyle' : 'strokeStyle'] = color.name;
-  ctx[fill ? 'fill' : 'stroke']();
+  ctx.fillStyle = fillColor.name;
+  ctx.fill();
+
+  if (outlineColor) {
+    ctx.strokeStyle = outlineColor.name;
+    ctx.lineWidth = 4;
+    ctx.stroke();
+  }
+
+  ctx.closePath();
 };
 
 // TODO: It would be nice to have fixed locations for the text to appear
-
 export const drawText = (
   text: string,
   x: number,
