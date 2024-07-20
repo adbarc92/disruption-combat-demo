@@ -35,25 +35,34 @@ export const drawRect = (
   }
 };
 
-// FIXME: refactor for drawing only outlines
-export const drawCircle = (
-  x: number,
-  y: number,
-  r: number,
-  fillColor: Color,
-  outlineColor?: Color,
-  ctx?: CanvasContext,
-) => {
+interface DrawCircleParams {
+  x: number;
+  y: number;
+  r: number;
+  fillColor?: Color;
+  outlineColor: Color;
+  ctx?: CanvasContext;
+}
+
+export const drawCircle = ({
+  x,
+  y,
+  r,
+  fillColor,
+  outlineColor,
+  ctx,
+}: DrawCircleParams) => {
   ctx = ctx ?? getGlobalCtx();
   ctx.beginPath();
   ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-  ctx.fillStyle = fillColor.name;
-  ctx.fill();
 
-  if (outlineColor) {
-    ctx.strokeStyle = outlineColor.name;
-    ctx.lineWidth = 4;
-    ctx.stroke();
+  ctx.strokeStyle = outlineColor.name;
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  if (fillColor) {
+    ctx.fillStyle = fillColor.name;
+    ctx.fill();
   }
 
   ctx.closePath();

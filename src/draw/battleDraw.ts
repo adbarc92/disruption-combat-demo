@@ -53,15 +53,23 @@ export const drawGridFromRectangleSpecs = (
   });
 };
 
-export const drawCircleOnGrid = (
-  circlePosition: Position,
-  gridSpecs: RectangleSpecs[][],
-  squareFillColor: Color,
-  squareOutlineColor: Color,
-  ctx: CanvasContext,
-) => {
+interface DrawCircleOnGridParams {
+  circlePosition: Position;
+  gridSpecs: RectangleSpecs[][];
+  fillColor?: Color;
+  outlineColor: Color;
+  ctx: CanvasContext;
+}
+
+export const drawCircleOnGrid = ({
+  circlePosition,
+  gridSpecs,
+  fillColor,
+  outlineColor,
+  ctx,
+}: DrawCircleOnGridParams) => {
   const { x, y } = positionToCanvasCoordinates(circlePosition, gridSpecs);
-  drawCircle(x, y, 40, squareFillColor, squareOutlineColor, ctx);
+  drawCircle({ x, y, r: 40, fillColor, outlineColor, ctx });
 };
 
 const positionToCanvasCoordinates = (

@@ -58,13 +58,13 @@ export class Game {
       this.ctx,
     );
 
-    drawCircleOnGrid(
-      this.circlePosition,
-      this.gridSpecs,
-      COLOR_GREEN,
-      COLOR_GREEN,
-      this.ctx,
-    );
+    drawCircleOnGrid({
+      circlePosition: this.circlePosition,
+      gridSpecs: this.gridSpecs,
+      outlineColor: COLOR_GREEN,
+      fillColor: undefined,
+      ctx: this.ctx,
+    });
   }
 
   handleArrowUp() {
