@@ -5,7 +5,7 @@ import {
 } from './battleDraw';
 import { COLOR_BLACK, COLOR_BLUE, COLOR_RED, COLOR_WHITE } from './color';
 import { drawCircle, drawRect, drawText } from './draw';
-import { CanvasContext } from './types';
+import { CanvasContext } from '../types';
 
 export const testShapes = (
   canvasWidth: number,

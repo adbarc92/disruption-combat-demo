@@ -2,7 +2,7 @@
 
 import { Color } from './color';
 import { drawRect } from './draw';
-import { CanvasContext, RectangleSpecs } from './types';
+import { CanvasContext, RectangleSpecs } from '../types';
 
 export const drawSquareGrid = (
   centerX: number,

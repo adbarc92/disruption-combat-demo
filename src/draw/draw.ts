@@ -4,7 +4,7 @@
 
 import { getGlobalCtx } from './canvas';
 import { Color, COLOR_BLACK } from './color';
-import { CanvasContext, DrawTextParams } from './types';
+import { CanvasContext, DrawTextParams } from '../types';
 
 const DEFAULT_TEXT_PARAMS: DrawTextParams = {
   font: 'monospace',

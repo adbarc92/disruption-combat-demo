@@ -1,4 +1,4 @@
-import { Color } from './color';
+import { Color } from './draw/color';
 
 export interface Dimensions {
   width: number;

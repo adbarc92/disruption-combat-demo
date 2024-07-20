@@ -4,7 +4,7 @@
  * The actual drawing is done via the context's methods.
  */
 
-import { CanvasContext } from './types';
+import { CanvasContext } from '../types';
 
 let globalCanvas: HTMLCanvasElement | null = null;
 const CANVAS_DEFAULT_HEIGHT = 576;
