@@ -30,8 +30,10 @@ const addEventListeners = (game: Game) => {
         game.handleArrowLeft();
         break;
       case 'Enter':
-        console.log('Enter');
         game.handleEnter();
+        break;
+      case 'Insert':
+        game.handleInsert();
         break;
     }
   });

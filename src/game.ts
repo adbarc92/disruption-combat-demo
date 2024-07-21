@@ -121,7 +121,6 @@ export class Game {
       if (gridSpec[0].statuses.length) {
         gridSpec[0].statuses = [];
       } else {
-        const burning = GridSpaceStatus.BURNING;
         gridSpec[0].statuses = [
           GridSpaceStatus.BURNING,
           GridSpaceStatus.OILY,
@@ -131,7 +130,25 @@ export class Game {
     });
   }
 
+  toggleCursorSpaceStatuses() {
+    const { x, y } = this.circlePosition;
+    const currentStatuses = this.gridSpecs[y][x].statuses;
+    if (currentStatuses.length === 0) {
+      this.gridSpecs[y][x].statuses = [
+        GridSpaceStatus.BURNING,
+        GridSpaceStatus.OILY,
+        GridSpaceStatus.RESONANT,
+      ];
+    } else {
+      this.gridSpecs[y][x].statuses = [];
+    }
+  }
+
   handleEnter() {
+    this.toggleCursorSpaceStatuses();
+  }
+
+  handleInsert() {
     this.toggleFirstRowStatuses();
   }
 }
