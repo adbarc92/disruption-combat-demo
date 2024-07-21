@@ -1,8 +1,6 @@
 /**
  * Functions for drawing shapes and text to the canvas.
  */
-
-import { getGlobalCtx } from './canvas';
 import { Color, COLOR_BLACK } from './color';
 import { CanvasContext, DrawTextParams } from '../types';
 
@@ -21,7 +19,7 @@ interface DrawRectParams {
   h: number;
   fillColor?: Color;
   outlineColor: Color;
-  ctx?: CanvasContext;
+  ctx: CanvasContext;
 }
 
 export const drawRect = ({
@@ -33,13 +31,12 @@ export const drawRect = ({
   outlineColor,
   ctx,
 }: DrawRectParams) => {
-  ctx = ctx ?? getGlobalCtx();
-  ctx.strokeStyle = outlineColor.name;
+  ctx.strokeStyle = outlineColor.hexCode;
   ctx.lineWidth = 4;
   ctx.strokeRect(x, y, w, h);
 
   if (fillColor) {
-    ctx.fillStyle = fillColor.name;
+    ctx.fillStyle = fillColor.hexCode;
     ctx.fillRect(x, y, w, h);
   }
 };
@@ -50,7 +47,7 @@ interface DrawCircleParams {
   r: number;
   fillColor?: Color;
   outlineColor: Color;
-  ctx?: CanvasContext;
+  ctx: CanvasContext;
 }
 
 export const drawCircle = ({
@@ -61,16 +58,15 @@ export const drawCircle = ({
   outlineColor,
   ctx,
 }: DrawCircleParams) => {
-  ctx = ctx ?? getGlobalCtx();
   ctx.beginPath();
   ctx.arc(x, y, r, 0, 2 * Math.PI, false);
 
-  ctx.strokeStyle = outlineColor.name;
+  ctx.strokeStyle = outlineColor.hexCode;
   ctx.lineWidth = 4;
   ctx.stroke();
 
   if (fillColor) {
-    ctx.fillStyle = fillColor.name;
+    ctx.fillStyle = fillColor.hexCode;
     ctx.fill();
   }
 
@@ -82,11 +78,9 @@ export const drawText = (
   text: string,
   x: number,
   y: number,
+  ctx: CanvasContext,
   textParams?: DrawTextParams,
-  ctx?: CanvasContext,
 ) => {
-  ctx = ctx ?? getGlobalCtx();
-
   const { font, size, color, align, strokeColor } = {
     ...DEFAULT_TEXT_PARAMS,
     ...(textParams ?? {}),
