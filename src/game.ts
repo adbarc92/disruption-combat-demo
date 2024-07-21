@@ -1,18 +1,31 @@
 import {
-  createSquareGridSpecs,
+  createBattleGridSpecs,
   drawCircleOnGrid,
-  drawGridFromRectangleSpecs,
+  drawGridFromSpecs,
 } from './draw/battleDraw';
 import { clearCanvas } from './draw/canvas';
-import { COLOR_BLACK, COLOR_GREEN, COLOR_RED, COLOR_WHITE } from './draw/color';
+import { COLOR_BLACK, COLOR_GREEN, COLOR_WHITE } from './draw/color';
 import { drawText } from './draw/draw';
 import { gameLoop } from './loop';
-import { CanvasContext, Position, RectangleSpecs } from './types';
+import {
+  BattleGridSpecs,
+  CanvasContext,
+  GridSpaceStatus,
+  Position,
+} from './types';
 import { handleLoopedArrayIndexing } from './utils';
 
+/**
+ * Game class should ultimately contain:
+ * * Controller/input config
+ * * Save state
+ * * Battle state
+ * * Game running state
+ * * Menu stack state
+ */
 export class Game {
   ctx: CanvasContext;
-  gridSpecs: RectangleSpecs[][];
+  gridSpecs: BattleGridSpecs[][];
   circlePosition: Position;
 
   constructor(ctx: CanvasContext) {
@@ -21,21 +34,13 @@ export class Game {
     const centerX = this.ctx.canvas.width / 2;
     const centerY = this.ctx.canvas.height / 2;
     const squareSide = 100;
-    this.gridSpecs = createSquareGridSpecs(centerX, centerY, squareSide, 3, 3);
+    this.gridSpecs = createBattleGridSpecs(centerX, centerY, squareSide, 3, 3);
 
     this.circlePosition = { x: 0, y: 0 };
-
-    // window.game = this; // FIXME Remove after debugging
   }
-  // controller config
-  // save state
-  // battle state
-  // game state: running, paused, quit
-  // Menu state: which are displayed, their ordering, and the cursor position
-  // Canvas
+
   async start() {
     gameLoop(this);
-    // this.draw();
   }
 
   clearCanvas() {
@@ -47,11 +52,11 @@ export class Game {
       'Disruption Combat Demo',
       this.ctx.canvas.width / 2 - 50,
       120,
-      { color: COLOR_WHITE, align: 'center' },
       this.ctx,
+      { color: COLOR_WHITE, align: 'center' },
     );
 
-    drawGridFromRectangleSpecs({
+    drawGridFromSpecs({
       gridSpecs: this.gridSpecs,
       fillColor: undefined,
       outlineColor: COLOR_BLACK,
@@ -109,5 +114,41 @@ export class Game {
       ),
       y: this.circlePosition.y,
     };
+  }
+
+  toggleFirstRowStatuses() {
+    this.gridSpecs.forEach((gridSpec) => {
+      if (gridSpec[0].statuses.length) {
+        gridSpec[0].statuses = [];
+      } else {
+        gridSpec[0].statuses = [
+          GridSpaceStatus.BURNING,
+          GridSpaceStatus.OILY,
+          GridSpaceStatus.RESONANT,
+        ];
+      }
+    });
+  }
+
+  toggleCursorSpaceStatuses() {
+    const { x, y } = this.circlePosition;
+    const currentStatuses = this.gridSpecs[y][x].statuses;
+    if (currentStatuses.length === 0) {
+      this.gridSpecs[y][x].statuses = [
+        GridSpaceStatus.BURNING,
+        GridSpaceStatus.OILY,
+        GridSpaceStatus.RESONANT,
+      ];
+    } else {
+      this.gridSpecs[y][x].statuses = [];
+    }
+  }
+
+  handleEnter() {
+    this.toggleCursorSpaceStatuses();
+  }
+
+  handleInsert() {
+    this.toggleFirstRowStatuses();
   }
 }

@@ -29,6 +29,12 @@ const addEventListeners = (game: Game) => {
       case 'ArrowLeft':
         game.handleArrowLeft();
         break;
+      case 'Enter':
+        game.handleEnter();
+        break;
+      case 'Insert':
+        game.handleInsert();
+        break;
     }
   });
 };

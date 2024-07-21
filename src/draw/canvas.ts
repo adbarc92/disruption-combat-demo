@@ -32,10 +32,6 @@ const getGlobalCanvas = (): HTMLCanvasElement => {
   return canvas;
 };
 
-export const getGlobalCtx = (): CanvasContext => {
-  return getGlobalCanvas().getContext('2d') as CanvasContext;
-};
-
 export const clearCanvas = (canvas?: HTMLCanvasElement) => {
   canvas = canvas || getGlobalCanvas();
   drawRect({
