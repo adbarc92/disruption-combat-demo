@@ -72,12 +72,12 @@ export const drawGridFromSpecs = ({
         ctx,
       });
 
-      space.statuses.reverse().forEach((status, i) => {
+      space.statuses.forEach((status, i) => {
         const color = statusToColor(status);
         drawCircle({
           x: space.startX + space.width / 2,
           y: space.startY + space.height / 2,
-          r: (i + 1) * 10,
+          r: calculateStatusCircleRadiusByIndex(i),
           outlineColor: color,
           fillColor: color,
           ctx,
@@ -85,6 +85,11 @@ export const drawGridFromSpecs = ({
       });
     });
   });
+};
+
+// FIXME: This should probably be more complicated eventually
+const calculateStatusCircleRadiusByIndex = (i: number): number => {
+  return 30 - i * 10;
 };
 
 const statusToColor = (status: GridSpaceStatus): Color => {
