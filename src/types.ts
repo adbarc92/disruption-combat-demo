@@ -35,6 +35,25 @@ export interface RectangleSpecs {
   height: number;
 }
 
+export enum GridSpaceStatus {
+  BURNING,
+  FROZEN,
+  WET,
+  ROCKY,
+  RESONANT,
+  SILENT,
+  OILY,
+}
+
+export interface GridSpaceStatusAndColor {
+  status: GridSpaceStatus;
+  color: Color;
+}
+
+export interface BattleGridSpecs extends RectangleSpecs {
+  statuses: GridSpaceStatus[];
+}
+
 export interface Window {
   game: Game;
 }

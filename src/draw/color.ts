@@ -19,6 +19,31 @@ export const COLOR_RED: Color = {
   hexCode: '#ff1100',
 };
 
+export const COLOR_ORANGE: Color = {
+  name: 'ORANGE',
+  hexCode: '#ff4500',
+};
+
+export const COLOR_PURPLE: Color = {
+  name: 'PURPLE',
+  hexCode: '#9b1087',
+};
+
+export const COLOR_BROWN: Color = {
+  name: 'BROWN',
+  hexCode: '#2d2926',
+};
+
+export const COLOR_LIGHTBLUE: Color = {
+  name: 'LIGHTBLUE',
+  hexCode: '#00bfff',
+};
+
+export const COLOR_DARKBLUE: Color = {
+  name: 'DARKBLUE',
+  hexCode: '#80b3ce',
+};
+
 export const COLOR_GREEN: Color = {
   name: 'GREEN',
   hexCode: '#26ff00',
@@ -27,4 +52,9 @@ export const COLOR_GREEN: Color = {
 export const COLOR_BLUE: Color = {
   name: 'BLUE',
   hexCode: '#0000ff',
+};
+
+export const COLOR_YELLOW: Color = {
+  name: 'YELLOW',
+  hexCode: '#ffff00',
 };
