@@ -122,7 +122,11 @@ export class Game {
         gridSpec[0].statuses = [];
       } else {
         const burning = GridSpaceStatus.BURNING;
-        gridSpec[0].statuses = [burning];
+        gridSpec[0].statuses = [
+          GridSpaceStatus.BURNING,
+          GridSpaceStatus.OILY,
+          GridSpaceStatus.RESONANT,
+        ];
       }
     });
   }

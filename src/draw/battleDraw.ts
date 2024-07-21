@@ -72,12 +72,12 @@ export const drawGridFromSpecs = ({
         ctx,
       });
 
-      space.statuses.forEach((status, i) => {
+      space.statuses.reverse().forEach((status, i) => {
         const color = statusToColor(status);
         drawCircle({
           x: space.startX + space.width / 2,
           y: space.startY + space.height / 2,
-          r: 40,
+          r: (i + 1) * 10,
           outlineColor: color,
           fillColor: color,
           ctx,
