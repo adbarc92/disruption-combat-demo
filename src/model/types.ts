@@ -1,4 +1,4 @@
-import { Color } from './draw/color';
+import { Color } from '../view/color';
 import { Game } from './game';
 
 export interface Dimensions {

@@ -18,7 +18,7 @@ import {
   GridSpaceStatus,
   Position,
   RectangleSpecs,
-} from '../types';
+} from '../model/types';
 
 export const drawSquareGrid = (
   centerX: number,

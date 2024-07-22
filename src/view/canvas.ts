@@ -4,7 +4,7 @@
  * The actual drawing is done via the context's methods.
  */
 
-import { CanvasContext } from '../types';
+import { CanvasContext } from '../model/types';
 import { COLOR_WHITE } from './color';
 import { drawRect } from './draw';
 

@@ -2,18 +2,18 @@ import {
   createBattleGridSpecs,
   drawCircleOnGrid,
   drawGridFromSpecs,
-} from './draw/battleDraw';
-import { clearCanvas } from './draw/canvas';
-import { COLOR_BLACK, COLOR_GREEN, COLOR_WHITE } from './draw/color';
-import { drawText } from './draw/draw';
-import { gameLoop } from './loop';
+} from '../view/battleDraw';
+import { clearCanvas } from '../view/canvas';
+import { COLOR_BLACK, COLOR_GREEN, COLOR_WHITE } from '../view/color';
+import { drawText } from '../view/draw';
+import { gameLoop } from '../controller/loop';
 import {
   BattleGridSpecs,
   CanvasContext,
   GridSpaceStatus,
   Position,
-} from './types';
-import { handleLoopedArrayIndexing } from './utils';
+} from '../model/types';
+import { handleLoopedArrayIndexing } from '../utils';
 
 /**
  * Game class should ultimately contain:

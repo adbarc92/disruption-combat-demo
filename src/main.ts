@@ -1,6 +1,6 @@
-import { createCanvas } from './draw/canvas';
-import { Game } from './game';
-import { CanvasSpecs } from './types';
+import { createCanvas } from './view/canvas';
+import { Game } from './model/game';
+import { CanvasSpecs } from './model/types';
 
 const CANVAS_HOLDER_ID = 'canvasHolder';
 

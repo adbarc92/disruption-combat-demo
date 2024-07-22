@@ -2,7 +2,7 @@
  * Functions for drawing shapes and text to the canvas.
  */
 import { Color, COLOR_BLACK } from './color';
-import { CanvasContext, DrawTextParams } from '../types';
+import { CanvasContext, DrawTextParams } from '../model/types';
 
 const DEFAULT_TEXT_PARAMS: DrawTextParams = {
   font: 'monospace',
