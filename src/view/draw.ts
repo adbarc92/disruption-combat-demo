@@ -1,10 +1,10 @@
 /**
  * Functions for drawing shapes and text to the canvas.
  */
-import { Color, COLOR_BLACK } from './color';
-import { CanvasContext, DrawTextParams } from '../model/types';
+import { Color, COLOR_BLACK, COLOR_WHITE } from './color';
+import { CanvasContext, TextParams } from '../model/types';
 
-const DEFAULT_TEXT_PARAMS: DrawTextParams = {
+const DEFAULT_TEXT_PARAMS: TextParams = {
   font: 'monospace',
   color: COLOR_BLACK,
   size: 14,
@@ -73,14 +73,16 @@ export const drawCircle = ({
   ctx.closePath();
 };
 
+interface DrawTextParams {
+  text: string;
+  x: number;
+  y: number;
+  ctx: CanvasContext;
+  textParams?: TextParams;
+}
+
 // TODO: It would be nice to have fixed locations for the text to appear
-export const drawText = (
-  text: string,
-  x: number,
-  y: number,
-  ctx: CanvasContext,
-  textParams?: DrawTextParams,
-) => {
+export const drawText = ({ text, x, y, ctx, textParams }: DrawTextParams) => {
   const { font, size, color, align, strokeColor } = {
     ...DEFAULT_TEXT_PARAMS,
     ...(textParams ?? {}),
@@ -94,4 +96,20 @@ export const drawText = (
   ctx.strokeText(text, x, y);
   ctx.fillStyle = (color as Color).name;
   ctx.fillText(text, x, y);
+};
+
+interface ClearCanvasParams {
+  canvas: HTMLCanvasElement;
+}
+
+export const clearCanvas = ({ canvas }: ClearCanvasParams) => {
+  drawRect({
+    x: 0,
+    y: 0,
+    w: canvas.width,
+    h: canvas.height,
+    fillColor: COLOR_WHITE,
+    outlineColor: COLOR_WHITE,
+    ctx: canvas.getContext('2d') as CanvasContext,
+  });
 };

@@ -1,4 +1,3 @@
-import { createCanvas } from './view/canvas';
 import { Game } from './model/game';
 import { CanvasContext, CanvasSpecs } from './model/types';
 
@@ -8,11 +7,13 @@ const initCanvas = (): CanvasSpecs => {
   const canvas = document.getElementById(CANVAS_HOLDER_ID) as HTMLCanvasElement;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d') as CanvasContext;
+  ctx.imageSmoothingEnabled = true; // Determines whether scaled images are smoothed
   return {
     width: canvas.width,
     height: canvas.height,
     canvas,
-    ctx: canvas.getContext('2d') as CanvasContext,
+    ctx,
   };
 };
 

@@ -3,7 +3,7 @@ import {
   drawCircleOnGrid,
   drawGridFromSpecs,
 } from '../view/battleDraw';
-import { clearCanvas } from '../view/canvas';
+import { clearCanvas } from '../view/draw';
 import { COLOR_BLACK, COLOR_GREEN, COLOR_WHITE } from '../view/color';
 import { drawText } from '../view/draw';
 import { gameLoop } from '../controller/loop';
@@ -44,17 +44,17 @@ export class Game {
   }
 
   clearCanvas() {
-    clearCanvas(this.ctx.canvas);
+    clearCanvas({ canvas: this.ctx.canvas });
   }
 
   draw() {
-    drawText(
-      'Disruption Combat Demo',
-      this.ctx.canvas.width / 2 - 50,
-      120,
-      this.ctx,
-      { color: COLOR_WHITE, align: 'center' },
-    );
+    drawText({
+      text: 'Disruption Combat Demo',
+      x: this.ctx.canvas.width / 2 - 50,
+      y: 120,
+      ctx: this.ctx,
+      textParams: { color: COLOR_WHITE, align: 'center' },
+    });
 
     drawGridFromSpecs({
       gridSpecs: this.gridSpecs,

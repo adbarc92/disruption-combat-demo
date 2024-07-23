@@ -20,7 +20,7 @@ export interface CanvasSpecs {
 
 export type CanvasContext = CanvasRenderingContext2D;
 
-export interface DrawTextParams {
+export interface TextParams {
   font?: string;
   color?: Color;
   size?: number;
