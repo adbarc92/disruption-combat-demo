@@ -14,6 +14,7 @@ import {
   Position,
 } from '../model/types';
 import { handleLoopedArrayIndexing } from '../utils';
+import { drawMenu } from '../view/battleMenu';
 
 /**
  * Game class should ultimately contain:
@@ -50,10 +51,10 @@ export class Game {
   draw() {
     drawText({
       text: 'Disruption Combat Demo',
-      x: this.ctx.canvas.width / 2 - 50,
-      y: 120,
+      x: this.ctx.canvas.width / 2,
+      y: 30,
       ctx: this.ctx,
-      textParams: { color: COLOR_WHITE, align: 'center' },
+      textParams: { outlineColor: COLOR_BLACK, align: 'center', size: 30 },
     });
 
     drawGridFromSpecs({
@@ -70,6 +71,8 @@ export class Game {
       fillColor: undefined,
       ctx: this.ctx,
     });
+
+    drawMenu({ ctx: this.ctx });
   }
 
   handleArrowUp() {

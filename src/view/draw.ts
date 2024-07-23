@@ -6,10 +6,10 @@ import { CanvasContext, TextParams } from '../model/types';
 
 const DEFAULT_TEXT_PARAMS: TextParams = {
   font: 'monospace',
-  color: COLOR_BLACK,
+  fillColor: COLOR_WHITE,
   size: 14,
   align: 'center',
-  strokeColor: 'black',
+  outlineColor: COLOR_BLACK,
 };
 
 interface DrawRectParams {
@@ -17,8 +17,8 @@ interface DrawRectParams {
   y: number;
   w: number;
   h: number;
-  fillColor?: Color;
   outlineColor: Color;
+  fillColor?: Color;
   ctx: CanvasContext;
 }
 
@@ -83,7 +83,7 @@ interface DrawTextParams {
 
 // TODO: It would be nice to have fixed locations for the text to appear
 export const drawText = ({ text, x, y, ctx, textParams }: DrawTextParams) => {
-  const { font, size, color, align, strokeColor } = {
+  const { font, size, fillColor, align, outlineColor } = {
     ...DEFAULT_TEXT_PARAMS,
     ...(textParams ?? {}),
   };
@@ -91,11 +91,13 @@ export const drawText = ({ text, x, y, ctx, textParams }: DrawTextParams) => {
   ctx.font = `${size}px ${font}`;
   ctx.textAlign = align as CanvasTextAlign;
   ctx.textBaseline = 'middle';
-  ctx.strokeStyle = strokeColor as string; // Might want to change this
+  ctx.strokeStyle = outlineColor.hexCode; // Might want to change this
   ctx.lineWidth = 4;
   ctx.strokeText(text, x, y);
-  ctx.fillStyle = (color as Color).name;
-  ctx.fillText(text, x, y);
+  if (fillColor) {
+    ctx.fillStyle = (fillColor as Color).name;
+    ctx.fillText(text, x, y);
+  }
 };
 
 interface ClearCanvasParams {

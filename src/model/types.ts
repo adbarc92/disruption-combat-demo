@@ -22,10 +22,10 @@ export type CanvasContext = CanvasRenderingContext2D;
 
 export interface TextParams {
   font?: string;
-  color?: Color;
+  outlineColor: Color;
+  fillColor?: Color;
   size?: number;
   align?: 'left' | 'center' | 'right';
-  strokeColor?: string;
 }
 
 export interface RectangleSpecs {
