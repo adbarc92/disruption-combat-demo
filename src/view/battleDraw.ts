@@ -82,6 +82,8 @@ export const drawGridFromSpecs = ({
           fillColor: color,
           ctx,
         });
+
+        // FIXME (7): record cursor mapping here
       });
     });
   });

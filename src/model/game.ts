@@ -27,6 +27,7 @@ export class Game {
   ctx: CanvasContext;
   gridSpecs: BattleGridSpecs[][];
   circlePosition: Position;
+  // Inventory
 
   constructor(ctx: CanvasContext) {
     this.ctx = ctx;
