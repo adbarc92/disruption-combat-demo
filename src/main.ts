@@ -1,17 +1,19 @@
 import { createCanvas } from './view/canvas';
 import { Game } from './model/game';
-import { CanvasSpecs } from './model/types';
+import { CanvasContext, CanvasSpecs } from './model/types';
 
-const CANVAS_HOLDER_ID = 'canvasHolder';
+const CANVAS_HOLDER_ID = 'coreCanvas';
 
-const createWindowCanvasAndReturnSpecs = (): CanvasSpecs => {
-  const [canvas, ctx, width, height] = createCanvas(
-    window.innerWidth,
-    window.innerHeight,
-  );
-  canvas.id = 'canvas';
-  document.getElementById(CANVAS_HOLDER_ID)?.appendChild(canvas);
-  return { width, height, canvas, ctx };
+const initCanvas = (): CanvasSpecs => {
+  const canvas = document.getElementById(CANVAS_HOLDER_ID) as HTMLCanvasElement;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  return {
+    width: canvas.width,
+    height: canvas.height,
+    canvas,
+    ctx: canvas.getContext('2d') as CanvasContext,
+  };
 };
 
 const addEventListeners = (game: Game) => {
@@ -41,13 +43,11 @@ const addEventListeners = (game: Game) => {
 
 export const main = async () => {
   console.log('Loading game...');
-  // FIXME: Load sprites
   console.log('Loaded sprites.');
   console.log('Loading database...');
-  // FIXME: Load database
   console.log('Loaded database.');
   console.log('Creating game...');
-  const { ctx } = createWindowCanvasAndReturnSpecs();
+  const { ctx } = initCanvas();
   const game = new Game(ctx);
   console.log('Created game.');
   console.log('Adding event listeners...');
