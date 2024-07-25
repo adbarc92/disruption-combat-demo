@@ -3,8 +3,18 @@ import {
   drawCircleOnGrid,
   drawGridFromSpecs,
 } from '../view/battleDraw';
-import { clearCanvas } from '../view/draw';
-import { COLOR_BLACK, COLOR_GREEN, COLOR_WHITE } from '../view/color';
+import {
+  clearCanvas,
+  drawIsoscelesTriangle,
+  drawRotatedTriangle,
+} from '../view/draw';
+import {
+  COLOR_BLACK,
+  COLOR_BLUE,
+  COLOR_GREEN,
+  COLOR_PURPLE,
+  COLOR_WHITE,
+} from '../view/color';
 import { drawText } from '../view/draw';
 import { gameLoop } from '../controller/loop';
 import {
@@ -14,7 +24,7 @@ import {
   Position,
 } from '../model/types';
 import { handleLoopedArrayIndexing } from '../utils';
-import { drawMenu } from '../view/battleMenu';
+import { drawMenu as drawBattleInputMenu } from '../view/battleMenu';
 
 /**
  * Game class should ultimately contain:
@@ -27,7 +37,8 @@ import { drawMenu } from '../view/battleMenu';
 export class Game {
   ctx: CanvasContext;
   gridSpecs: BattleGridSpecs[][];
-  circlePosition: Position;
+  gridCursorPosition: Position;
+  battleMenuCursorPosition: number;
 
   constructor(ctx: CanvasContext) {
     this.ctx = ctx;
@@ -37,7 +48,8 @@ export class Game {
     const squareSide = 100;
     this.gridSpecs = createBattleGridSpecs(centerX, centerY, squareSide, 3, 3);
 
-    this.circlePosition = { x: 0, y: 0 };
+    this.gridCursorPosition = { x: 0, y: 0 };
+    this.battleMenuCursorPosition = 0;
   }
 
   async start() {
@@ -65,57 +77,92 @@ export class Game {
     });
 
     drawCircleOnGrid({
-      circlePosition: this.circlePosition,
+      circlePosition: this.gridCursorPosition,
       gridSpecs: this.gridSpecs,
       outlineColor: COLOR_GREEN,
       fillColor: undefined,
       ctx: this.ctx,
     });
 
-    drawMenu({ ctx: this.ctx });
+    drawBattleInputMenu({ ctx: this.ctx });
+
+    drawRotatedTriangle({
+      centerX: this.ctx.canvas.width / 2,
+      centerY: this.ctx.canvas.height / 2,
+      width: 100,
+      height: 200,
+      outlineColor: COLOR_BLUE,
+      fillColor: COLOR_PURPLE,
+      ctx: this.ctx,
+      angle: 90,
+    });
   }
 
+  /**
+   * Input routing methods
+   */
+
   handleArrowUp() {
-    this.circlePosition = {
-      x: this.circlePosition.x,
-      y: handleLoopedArrayIndexing(
-        this.circlePosition.y,
-        -1,
-        this.gridSpecs.length,
-      ),
-    };
+    this.gridCursorUp();
   }
 
   handleArrowDown() {
-    this.circlePosition = {
-      x: this.circlePosition.x,
+    this.gridCursorDown();
+  }
+
+  handleArrowRight() {
+    this.gridCursorRight();
+  }
+
+  handleArrowLeft() {
+    this.gridCursorLeft();
+  }
+
+  /**
+   * Grid Cursor Methods
+   */
+
+  gridCursorUp() {
+    this.gridCursorPosition = {
+      x: this.gridCursorPosition.x,
       y: handleLoopedArrayIndexing(
-        this.circlePosition.y,
+        this.gridCursorPosition.y,
+        -1,
+        this.gridSpecs.length,
+      ),
+    };
+  }
+
+  gridCursorDown() {
+    this.gridCursorPosition = {
+      x: this.gridCursorPosition.x,
+      y: handleLoopedArrayIndexing(
+        this.gridCursorPosition.y,
         1,
         this.gridSpecs.length,
       ),
     };
   }
 
-  handleArrowRight() {
-    this.circlePosition = {
+  gridCursorRight() {
+    this.gridCursorPosition = {
       x: handleLoopedArrayIndexing(
-        this.circlePosition.x,
+        this.gridCursorPosition.x,
         1,
-        this.gridSpecs[this.circlePosition.y].length,
+        this.gridSpecs[this.gridCursorPosition.y].length,
       ),
-      y: this.circlePosition.y,
+      y: this.gridCursorPosition.y,
     };
   }
 
-  handleArrowLeft() {
-    this.circlePosition = {
+  gridCursorLeft() {
+    this.gridCursorPosition = {
       x: handleLoopedArrayIndexing(
-        this.circlePosition.x,
+        this.gridCursorPosition.x,
         -1,
-        this.gridSpecs[this.circlePosition.y].length,
+        this.gridSpecs[this.gridCursorPosition.y].length,
       ),
-      y: this.circlePosition.y,
+      y: this.gridCursorPosition.y,
     };
   }
 
@@ -134,7 +181,7 @@ export class Game {
   }
 
   toggleCursorSpaceStatuses() {
-    const { x, y } = this.circlePosition;
+    const { x, y } = this.gridCursorPosition;
     const currentStatuses = this.gridSpecs[y][x].statuses;
     if (currentStatuses.length === 0) {
       this.gridSpecs[y][x].statuses = [

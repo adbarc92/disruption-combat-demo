@@ -2,7 +2,8 @@
  * Functions for drawing shapes and text to the canvas.
  */
 import { Color, COLOR_BLACK, COLOR_WHITE } from './color';
-import { CanvasContext, TextParams } from '../model/types';
+import { CanvasContext, Position, TextParams } from '../model/types';
+import { rotatePoint } from '../utils';
 
 const DEFAULT_TEXT_PARAMS: TextParams = {
   font: 'monospace',
@@ -71,6 +72,124 @@ export const drawCircle = ({
   }
 
   ctx.closePath();
+};
+
+interface DrawTriangleParams {
+  firstPoint: Position;
+  secondPoint: Position;
+  thirdPoint: Position;
+  outlineColor: Color;
+  fillColor?: Color;
+  ctx: CanvasContext;
+}
+
+export const drawTriangle = ({
+  firstPoint,
+  secondPoint,
+  thirdPoint,
+  outlineColor,
+  fillColor,
+  ctx,
+}: DrawTriangleParams) => {
+  ctx.strokeStyle = outlineColor.hexCode;
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(firstPoint.x, firstPoint.y);
+  ctx.lineTo(secondPoint.x, secondPoint.y);
+  ctx.lineTo(thirdPoint.x, thirdPoint.y);
+  ctx.lineTo(firstPoint.x, firstPoint.y);
+  ctx.stroke();
+  if (fillColor) {
+    ctx.fillStyle = fillColor.hexCode;
+    ctx.fill();
+  }
+};
+
+interface DrawIsoscelesTriangleParams {
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+  outlineColor: Color;
+  fillColor?: Color;
+  ctx: CanvasContext;
+}
+
+export const drawIsoscelesTriangle = ({
+  centerX,
+  centerY,
+  width,
+  height,
+  outlineColor,
+  fillColor,
+  ctx,
+}: DrawIsoscelesTriangleParams) => {
+  const firstPoint = { x: centerX - width / 2, y: centerY + height / 2 };
+  const secondPoint = { x: centerX, y: centerY - height / 2 };
+  const thirdPoint = { x: centerX + width / 2, y: centerY + height / 2 };
+  drawTriangle({
+    firstPoint,
+    secondPoint,
+    thirdPoint,
+    outlineColor,
+    fillColor,
+    ctx,
+  });
+};
+
+interface DrawRotatedTriangleParams {
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+  outlineColor: Color;
+  fillColor?: Color;
+  ctx: CanvasContext;
+  angle: number;
+}
+
+export const drawRotatedTriangle = ({
+  centerX,
+  centerY,
+  width,
+  height,
+  outlineColor,
+  fillColor,
+  ctx,
+  angle,
+}: DrawRotatedTriangleParams) => {
+  const firstPoint = rotatePoint({
+    x: centerX - width / 2,
+    y: centerY + height / 2,
+    cx: centerX,
+    cy: centerY,
+    angle,
+  });
+
+  const secondPoint = rotatePoint({
+    x: centerX,
+    y: centerY - height / 2,
+    cx: centerX,
+    cy: centerY,
+    angle,
+  });
+
+  const thirdPoint = rotatePoint({
+    x: centerX + width / 2,
+    y: centerY + height / 2,
+    cx: centerX,
+    cy: centerY,
+    angle,
+  });
+
+  drawTriangle({
+    firstPoint,
+    secondPoint,
+    thirdPoint,
+    outlineColor,
+    fillColor,
+    ctx,
+  });
 };
 
 interface DrawTextParams {
