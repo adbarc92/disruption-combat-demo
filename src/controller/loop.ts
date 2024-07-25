@@ -2,8 +2,8 @@
 // https://iamschulz.com/writing-a-game-in-typescript/
 // https://github.com/benjamin-t-brown/tavernity/blob/main/src/index.ts#L64
 
-import { clearCanvas } from './draw/canvas';
-import { Game } from './game';
+import { Game } from '../model/game';
+import { clearCanvas } from '../view/canvas';
 
 const MS_PER_FRAME_FOR_60_FPS = 16;
 const DT = 0.01;

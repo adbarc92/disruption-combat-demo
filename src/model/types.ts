@@ -1,4 +1,4 @@
-import { Color } from './draw/color';
+import { Color } from '../view/color';
 import { Game } from './game';
 
 export interface Dimensions {
@@ -20,12 +20,12 @@ export interface CanvasSpecs {
 
 export type CanvasContext = CanvasRenderingContext2D;
 
-export interface DrawTextParams {
+export interface TextParams {
   font?: string;
-  color?: Color;
+  outlineColor: Color;
+  fillColor?: Color;
   size?: number;
   align?: 'left' | 'center' | 'right';
-  strokeColor?: string;
 }
 
 export interface RectangleSpecs {
@@ -52,6 +52,23 @@ export interface GridSpaceStatusAndColor {
 
 export interface BattleGridSpecs extends RectangleSpecs {
   statuses: GridSpaceStatus[];
+}
+
+export interface BattleInputTextSpecs {
+  x: number;
+  y: number;
+  // FIXME: maybe text params?
+  wPx: number;
+  hPx: number;
+  text: string;
+}
+
+export interface BattleInputMenuSpecs {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  textSpecs: BattleInputTextSpecs[];
 }
 
 export interface Window {

@@ -18,7 +18,7 @@ import {
   GridSpaceStatus,
   Position,
   RectangleSpecs,
-} from '../types';
+} from '../model/types';
 
 export const drawSquareGrid = (
   centerX: number,
@@ -114,7 +114,7 @@ const statusToColor = (status: GridSpaceStatus): Color => {
 };
 
 interface DrawCircleOnGridParams {
-  circlePosition: Position;
+  gridCursorPosition: Position;
   gridSpecs: RectangleSpecs[][];
   fillColor?: Color;
   outlineColor: Color;
@@ -122,13 +122,13 @@ interface DrawCircleOnGridParams {
 }
 
 export const drawCircleOnGrid = ({
-  circlePosition,
+  gridCursorPosition,
   gridSpecs,
   fillColor,
   outlineColor,
   ctx,
 }: DrawCircleOnGridParams) => {
-  const { x, y } = positionToCanvasCoordinates(circlePosition, gridSpecs);
+  const { x, y } = positionToCanvasCoordinates(gridCursorPosition, gridSpecs);
   drawCircle({ x, y, r: 40, fillColor, outlineColor, ctx });
 };
 
@@ -168,7 +168,3 @@ export const createBattleGridSpecs = (
   }
   return grid;
 };
-
-// TODO: draw input menu
-
-// TODO: draw battle log
