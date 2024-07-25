@@ -54,6 +54,23 @@ export interface BattleGridSpecs extends RectangleSpecs {
   statuses: GridSpaceStatus[];
 }
 
+export interface BattleInputTextSpecs {
+  x: number;
+  y: number;
+  // FIXME: maybe text params?
+  wPx: number;
+  hPx: number;
+  text: string;
+}
+
+export interface BattleInputMenuSpecs {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  textSpecs: BattleInputTextSpecs[];
+}
+
 export interface Window {
   game: Game;
 }

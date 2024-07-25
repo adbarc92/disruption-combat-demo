@@ -6,6 +6,7 @@ import {
 import { COLOR_BLACK, COLOR_BLUE, COLOR_RED, COLOR_WHITE } from './color';
 import { drawCircle, drawRect, drawText } from './draw';
 import { CanvasContext } from '../model/types';
+import { BATTLE_ACTIONS } from '../model/game';
 
 // export const testShapes = (
 //   canvasWidth: number,
@@ -101,3 +102,33 @@ import { CanvasContext } from '../model/types';
 //   ctx.lineTo(canvasWidth / 2, canvasHeight);
 //   ctx.stroke();
 // };
+
+interface DrawBattleInputMenuParams {
+  ctx: CanvasContext;
+}
+
+export const drawBattleInputMenu = ({ ctx }: DrawBattleInputMenuParams) => {
+  // Draw a rectangle
+  drawRect({
+    x: ctx.canvas.width / 2 - 80,
+    y: ctx.canvas.height - 225,
+    w: 160,
+    h: 200,
+    outlineColor: COLOR_BLACK,
+    ctx,
+  });
+
+  BATTLE_ACTIONS.forEach((action, i) => {
+    drawText({
+      text: action,
+      x: ctx.canvas.width / 2,
+      y: ctx.canvas.height - (200 - 25 * i),
+      ctx,
+      textParams: {
+        outlineColor: COLOR_BLACK,
+        fillColor: COLOR_WHITE,
+        size: 20,
+      },
+    });
+  });
+};

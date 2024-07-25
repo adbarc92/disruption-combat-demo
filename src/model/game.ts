@@ -3,28 +3,22 @@ import {
   drawCircleOnGrid,
   drawGridFromSpecs,
 } from '../view/battleDraw';
-import {
-  clearCanvas,
-  drawIsoscelesTriangle,
-  drawRotatedTriangle,
-} from '../view/draw';
-import {
-  COLOR_BLACK,
-  COLOR_BLUE,
-  COLOR_GREEN,
-  COLOR_PURPLE,
-  COLOR_WHITE,
-} from '../view/color';
+import { clearCanvas } from '../view/draw';
+import { COLOR_BLACK, COLOR_GREEN } from '../view/color';
 import { drawText } from '../view/draw';
 import { gameLoop } from '../controller/loop';
 import {
   BattleGridSpecs,
+  BattleInputMenuSpecs,
   CanvasContext,
   GridSpaceStatus,
   Position,
 } from '../model/types';
 import { handleLoopedArrayIndexing } from '../utils';
-import { drawMenu as drawBattleInputMenu } from '../view/battleMenu';
+import {
+  createBattleInputMenuSpecs,
+  drawBattleInputMenuFromSpecs,
+} from '../view/battleMenu';
 
 /**
  * Game class should ultimately contain:
@@ -34,9 +28,21 @@ import { drawMenu as drawBattleInputMenu } from '../view/battleMenu';
  * * Game running state
  * * Menu stack state
  */
+
+export const BATTLE_ACTIONS = [
+  'ATTACK',
+  'DEFEND',
+  'MOVE',
+  'TECH',
+  'ITEM',
+  'EQUIP',
+  'USE',
+];
+
 export class Game {
   ctx: CanvasContext;
   gridSpecs: BattleGridSpecs[][];
+  battleInputMenuSpecs: BattleInputMenuSpecs;
   gridCursorPosition: Position;
   battleMenuCursorPosition: number;
 
@@ -47,6 +53,10 @@ export class Game {
     const centerY = this.ctx.canvas.height / 2;
     const squareSide = 100;
     this.gridSpecs = createBattleGridSpecs(centerX, centerY, squareSide, 3, 3);
+    this.battleInputMenuSpecs = createBattleInputMenuSpecs({
+      ctx: this.ctx,
+      actions: BATTLE_ACTIONS,
+    });
 
     this.gridCursorPosition = { x: 0, y: 0 };
     this.battleMenuCursorPosition = 0;
@@ -61,40 +71,34 @@ export class Game {
   }
 
   draw() {
+    const { ctx, gridSpecs, battleInputMenuSpecs, gridCursorPosition } = this;
+
     drawText({
       text: 'Disruption Combat Demo',
-      x: this.ctx.canvas.width / 2,
+      x: ctx.canvas.width / 2,
       y: 30,
-      ctx: this.ctx,
+      ctx,
       textParams: { outlineColor: COLOR_BLACK, align: 'center', size: 30 },
     });
 
     drawGridFromSpecs({
-      gridSpecs: this.gridSpecs,
+      gridSpecs,
       fillColor: undefined,
       outlineColor: COLOR_BLACK,
-      ctx: this.ctx,
+      ctx,
     });
 
     drawCircleOnGrid({
-      circlePosition: this.gridCursorPosition,
-      gridSpecs: this.gridSpecs,
+      gridCursorPosition,
+      gridSpecs,
       outlineColor: COLOR_GREEN,
       fillColor: undefined,
-      ctx: this.ctx,
+      ctx,
     });
 
-    drawBattleInputMenu({ ctx: this.ctx });
-
-    drawRotatedTriangle({
-      centerX: this.ctx.canvas.width / 2,
-      centerY: this.ctx.canvas.height / 2,
-      width: 100,
-      height: 200,
-      outlineColor: COLOR_BLUE,
-      fillColor: COLOR_PURPLE,
-      ctx: this.ctx,
-      angle: 90,
+    drawBattleInputMenuFromSpecs({
+      ctx,
+      battleInputMenuSpecs,
     });
   }
 

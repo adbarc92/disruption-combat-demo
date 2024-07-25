@@ -5,7 +5,7 @@ import { Color, COLOR_BLACK, COLOR_WHITE } from './color';
 import { CanvasContext, Position, TextParams } from '../model/types';
 import { rotatePoint } from '../utils';
 
-const DEFAULT_TEXT_PARAMS: TextParams = {
+export const DEFAULT_TEXT_PARAMS: TextParams = {
   font: 'monospace',
   fillColor: COLOR_WHITE,
   size: 14,
