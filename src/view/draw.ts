@@ -140,27 +140,28 @@ export const drawIsoscelesTriangle = ({
 interface DrawRotatedTriangleParams {
   centerX: number;
   centerY: number;
-  width: number;
-  height: number;
+  w: number;
+  h: number;
   outlineColor: Color;
   fillColor?: Color;
   ctx: CanvasContext;
   angle: number;
 }
 
+// FIXME: Something is scuffed with this. The first point is rounded.
 export const drawRotatedTriangle = ({
   centerX,
   centerY,
-  width,
-  height,
+  w,
+  h,
   outlineColor,
   fillColor,
   ctx,
   angle,
 }: DrawRotatedTriangleParams) => {
   const firstPoint = rotatePoint({
-    x: centerX - width / 2,
-    y: centerY + height / 2,
+    x: centerX - w / 2,
+    y: centerY + h / 2,
     cx: centerX,
     cy: centerY,
     angle,
@@ -168,15 +169,15 @@ export const drawRotatedTriangle = ({
 
   const secondPoint = rotatePoint({
     x: centerX,
-    y: centerY - height / 2,
+    y: centerY - h / 2,
     cx: centerX,
     cy: centerY,
     angle,
   });
 
   const thirdPoint = rotatePoint({
-    x: centerX + width / 2,
-    y: centerY + height / 2,
+    x: centerX + w / 2,
+    y: centerY + h / 2,
     cx: centerX,
     cy: centerY,
     angle,

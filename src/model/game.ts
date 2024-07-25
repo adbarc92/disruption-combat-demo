@@ -1,9 +1,9 @@
 import {
   createBattleGridSpecs,
-  drawCircleOnGrid,
+  drawCircleOnGrid as drawGridCursor,
   drawGridFromSpecs,
 } from '../view/battleDraw';
-import { clearCanvas } from '../view/draw';
+import { clearCanvas, drawRotatedTriangle } from '../view/draw';
 import { COLOR_BLACK, COLOR_GREEN } from '../view/color';
 import { drawText } from '../view/draw';
 import { gameLoop } from '../controller/loop';
@@ -17,6 +17,7 @@ import {
 import { handleLoopedArrayIndexing } from '../utils';
 import {
   createBattleInputMenuSpecs,
+  drawBattleInputMenuCursor,
   drawBattleInputMenuFromSpecs,
 } from '../view/battleMenu';
 
@@ -71,7 +72,13 @@ export class Game {
   }
 
   draw() {
-    const { ctx, gridSpecs, battleInputMenuSpecs, gridCursorPosition } = this;
+    const {
+      ctx,
+      gridSpecs,
+      battleInputMenuSpecs,
+      gridCursorPosition,
+      battleMenuCursorPosition,
+    } = this;
 
     drawText({
       text: 'Disruption Combat Demo',
@@ -88,7 +95,7 @@ export class Game {
       ctx,
     });
 
-    drawCircleOnGrid({
+    drawGridCursor({
       gridCursorPosition,
       gridSpecs,
       outlineColor: COLOR_GREEN,
@@ -100,6 +107,12 @@ export class Game {
       ctx,
       battleInputMenuSpecs,
     });
+
+    drawBattleInputMenuCursor({
+      cursorPosition: battleMenuCursorPosition,
+      battleInputMenuSpecs,
+      ctx,
+    });
   }
 
   /**
@@ -107,19 +120,41 @@ export class Game {
    */
 
   handleArrowUp() {
-    this.gridCursorUp();
+    this.battleMenuInputUp();
+    // this.gridCursorUp();
   }
 
   handleArrowDown() {
-    this.gridCursorDown();
+    this.battleMenuInputDown();
+    // this.gridCursorDown();
   }
 
   handleArrowRight() {
-    this.gridCursorRight();
+    // this.gridCursorRight();
   }
 
   handleArrowLeft() {
-    this.gridCursorLeft();
+    // this.gridCursorLeft();
+  }
+
+  /**
+   * Input Cursor Methods
+   */
+
+  battleMenuInputUp() {
+    this.battleMenuCursorPosition = handleLoopedArrayIndexing(
+      this.battleMenuCursorPosition,
+      -1,
+      this.battleInputMenuSpecs.textSpecs.length,
+    );
+  }
+
+  battleMenuInputDown() {
+    this.battleMenuCursorPosition = handleLoopedArrayIndexing(
+      this.battleMenuCursorPosition,
+      1,
+      this.battleInputMenuSpecs.textSpecs.length,
+    );
   }
 
   /**

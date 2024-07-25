@@ -168,7 +168,3 @@ export const createBattleGridSpecs = (
   }
   return grid;
 };
-
-// TODO: draw input menu
-
-// TODO: draw battle log

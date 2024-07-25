@@ -1,12 +1,16 @@
-import { BATTLE_ACTIONS } from '../model/game';
 import {
   BattleInputMenuSpecs,
   BattleInputTextSpecs,
   CanvasContext,
   TextParams,
 } from '../model/types';
-import { Color, COLOR_BLACK, COLOR_WHITE } from './color';
-import { DEFAULT_TEXT_PARAMS, drawRect, drawText } from './draw';
+import { Color, COLOR_BLACK } from './color';
+import {
+  DEFAULT_TEXT_PARAMS,
+  drawRect,
+  drawRotatedTriangle,
+  drawText,
+} from './draw';
 
 // Starting at the bottom of the screen, display the menu
 
@@ -89,4 +93,41 @@ export const drawBattleInputMenuFromSpecs = ({
       },
     });
   });
+};
+
+interface DrawBattleInputMenuCursorParams {
+  cursorPosition: number;
+  battleInputMenuSpecs: BattleInputMenuSpecs;
+  ctx: CanvasContext;
+}
+
+export const drawBattleInputMenuCursor = ({
+  cursorPosition,
+  battleInputMenuSpecs,
+  ctx,
+}: DrawBattleInputMenuCursorParams) => {
+  const { x, y, wPx, hPx } = battleInputMenuSpecs.textSpecs[cursorPosition];
+
+  drawRotatedTriangle({
+    centerX: x - wPx - 10,
+    centerY: y,
+    w: 10,
+    h: 10,
+    outlineColor: COLOR_BLACK,
+    fillColor: COLOR_BLACK,
+    ctx,
+    angle: 90,
+  });
+
+  drawRotatedTriangle({
+    centerX: x + wPx + 10,
+    centerY: y,
+    w: 10,
+    h: 10,
+    outlineColor: COLOR_BLACK,
+    fillColor: COLOR_BLACK,
+    ctx,
+    angle: 270,
+  });
+  // Make it the same color as the input text
 };
