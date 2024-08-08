@@ -5,12 +5,8 @@ import {
   TextParams,
 } from '../model/types';
 import { Color, COLOR_BLACK } from './color';
-import {
-  DEFAULT_TEXT_PARAMS,
-  drawRect,
-  drawRotatedTriangle,
-  drawText,
-} from './draw';
+import { drawRect, drawRotatedTriangle } from './draw.shape';
+import { DEFAULT_TEXT_PARAMS, drawText } from './draw.text';
 
 // Starting at the bottom of the screen, display the menu
 

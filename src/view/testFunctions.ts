@@ -1,12 +1,8 @@
-import {
-  createBattleGridSpecs,
-  drawGridFromSpecs,
-  drawSquareGrid,
-} from './battleDraw';
-import { COLOR_BLACK, COLOR_BLUE, COLOR_RED, COLOR_WHITE } from './color';
-import { drawCircle, drawRect, drawText } from './draw';
+import { COLOR_BLACK, COLOR_WHITE } from './color';
+import { drawRect } from './draw.shape';
 import { CanvasContext } from '../model/types';
 import { BATTLE_ACTIONS } from '../model/game';
+import { drawText } from './draw.text';
 
 // export const testShapes = (
 //   canvasWidth: number,

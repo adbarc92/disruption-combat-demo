@@ -11,7 +11,7 @@ import {
   COLOR_WHITE,
   COLOR_YELLOW,
 } from './color';
-import { drawCircle, drawRect } from './draw';
+import { drawCircle, drawRect } from './draw.shape';
 import {
   BattleGridSpecs,
   CanvasContext,

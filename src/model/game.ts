@@ -3,9 +3,7 @@ import {
   drawCircleOnGrid as drawGridCursor,
   drawGridFromSpecs,
 } from '../view/battleDraw';
-import { clearCanvas, drawRotatedTriangle } from '../view/draw';
 import { COLOR_BLACK, COLOR_GREEN } from '../view/color';
-import { drawText } from '../view/draw';
 import { gameLoop } from '../controller/loop';
 import {
   BattleGridSpecs,
@@ -20,6 +18,8 @@ import {
   drawBattleInputMenuCursor,
   drawBattleInputMenuFromSpecs,
 } from '../view/battleMenu';
+import { drawText } from '../view/draw.text';
+import { clearCanvas } from '../view/draw.canvas';
 
 /**
  * Game class should ultimately contain:
